@@ -1,6 +1,9 @@
 const mqtt = require("mqtt");
 const express = require("express");
 const app = express();
+var cors = require("cors");
+
+app.use(cors());
 
 const host = "localhost";
 const port = "1883";
@@ -21,14 +24,14 @@ client.on("connect", () => {
   client.subscribe([topic], () => {
     console.log(`Subscribe to topic ${topic}`);
   });
-  client.publish(
-    topic,
-    "nodejs mqtt test",
-    { qos: 0, retain: false },
-    (err) => {
-      if (err) console.log(err);
-    }
-  );
+  // client.publish(
+  //   topic,
+  //   "nodejs mqtt test",
+  //   { qos: 0, retain: false },
+  //   (err) => {
+  //     if (err) console.log(err);
+  //   }
+  // );
 });
 
 client.on("message", (topic, payload) => {
