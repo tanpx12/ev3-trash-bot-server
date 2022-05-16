@@ -5,7 +5,7 @@ var cors = require("cors");
 
 app.use(cors());
 
-const host = "localhost";
+const host = "192.168.2.12";
 const port = "1883";
 const clientID = "tan";
 const topic = "server/msg";
@@ -38,10 +38,11 @@ client.on("message", (topic, payload) => {
   console.log("Received Message: ", topic, payload.toString());
 });
 
-app.post("/command", (req, res) => {
-  const { direction } = req.query;
+app.post("/controller", (req, res) => {
+  const { command } = req.query;
 
-  switch (direction) {
+  console.log(command);
+  switch (command) {
     case "1":
       console.log("turn left");
       client.publish(topic, "turn left", { qos: 0, retain: false }, (err) => {
@@ -66,6 +67,25 @@ app.post("/command", (req, res) => {
         if (err) console.log(err);
       });
       break;
+    case "5":
+      console.log("grab");
+      client.publish(topic, "grab", { qos: 0, retain: false }, (err) => {
+        if (err) console.log(err);
+      });
+      break;
+    case "6":
+      console.log("manual");
+      client.publish(topic, "manual", { qos: 0, retain: false }, (err) => {
+        if (err) console.log(err);
+      });
+      break;
+    case "7":
+      console.log("auto");
+      client.publish(topic, "auto", { qos: 0, retain: false }, (err) => {
+        if (err) console.log(err);
+      });
+      break;
+
     default:
       break;
   }
