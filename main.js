@@ -5,7 +5,7 @@ var cors = require("cors");
 
 app.use(cors());
 
-const host = "192.168.2.12";
+const host = "172.20.10.14";
 const port = "1883";
 const clientID = "tan";
 const topic = "server/msg";
